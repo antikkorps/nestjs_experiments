@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int   @id @default(autoincrement())
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  annonces     Annonce[]
+}
+
+model Annonce {
+  id          String  @id @default(uuid())
+  title       String
+  description String
+  price       Int
+  kilometrage Int?
+  yearofcirculation Int?
+  published         Boolean     @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author            User?       @relation(fields: [authorId], references: [id])
+  authorId          Int?
+  Equipment         Equipment[]
+  Image             Image[]
+}
+
+model Image {
+  id            Int      @id @default(autoincrement())
+  name          String?
+  url           String?
+  featuredImage Boolean @default(false)
+  Annonce   Annonce? @relation(fields: [AnnonceId], references: [id])
+  AnnonceId     String?
+}
+
+model Equipment {
+  id            Int       @id @default(autoincrement())
+  name          String?
+  Annonces Annonce[]
+}
