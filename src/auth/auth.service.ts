@@ -35,10 +35,26 @@ export class AuthService {
       }
       throw error;
     }
-
-    return { msg: 'I am signup through service' };
   }
-  signin() {
+  async signin(dto: AuthDto) {
+    // find the user by email
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: dto.email,
+      },
+    });
+    //if user does not exist throw exception
+    if (!user)
+      throw new ForbiddenException('Utilisateur et/ou mot de passe incorrects');
+    //compare password
+    const passwordMatches = await argon.verify(user.password, dto.password);
+    //if password incorrect, throw an exception
+    if (!passwordMatches)
+      throw new ForbiddenException('Utilisateur et/ou mot de passe incorrects');
+    //if password correct, send back the user
+    delete user.password;
+    return user;
+
     return { msg: 'I am signup through service' };
   }
 }
