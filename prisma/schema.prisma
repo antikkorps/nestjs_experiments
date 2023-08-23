@@ -19,6 +19,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   annonces     Annonce[]
+
+  @@map("users")
 }
 
 model Annonce {
@@ -36,6 +38,8 @@ model Annonce {
   authorId          Int?
   Equipment         Equipment[]
   Image             Image[]
+
+  @@map("annonces")
 }
 
 model Image {
