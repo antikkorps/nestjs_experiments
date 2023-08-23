@@ -1,12 +1,18 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { ConfigService } from '@nestjs/config';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { AuthDto } from './dto';
 import * as argon from 'argon2';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwt: JwtService,
+    private config: ConfigService,
+  ) {}
 
   async signup(dto: AuthDto) {
     // Generate the password hash
@@ -54,7 +60,13 @@ export class AuthService {
     //if password correct, send back the user
     delete user.password;
     return user;
-
-    return { msg: 'I am signup through service' };
+  }
+  async signToken(userId: number, email: string): Promise<string> {
+    const payload = {
+      sub: userId,
+      email,
+    };
+    const secret = this.config.get('JWT_SECRET');
+    return this.jwt.signAsync(payload, { expiresIn: '1h', secret: secret });
   }
 }
