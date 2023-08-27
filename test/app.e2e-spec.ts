@@ -36,6 +36,27 @@ describe('App e2e', () => {
       password: 'password',
     };
     describe('Signup', () => {
+      it('should throw an errror if email is not valid', () => {
+        return pactum
+          .spec()
+          .post('/auth/signup')
+          .withBody({ password: dto.password })
+          .expectStatus(400);
+      });
+      it('should throw an errror if password is empty', () => {
+        return pactum
+          .spec()
+          .post('/auth/signup')
+          .withBody({ email: dto.email })
+          .expectStatus(400);
+      });
+      it('should throw an errror if email && password are empty', () => {
+        return pactum
+          .spec()
+          .post('/auth/signup')
+          .withBody('')
+          .expectStatus(400);
+      });
       it('should signup', () => {
         return pactum
           .spec()
@@ -45,12 +66,34 @@ describe('App e2e', () => {
       });
     });
     describe('Signin', () => {
+      it('should throw an errror if email is not valid', () => {
+        return pactum
+          .spec()
+          .post('/auth/signin')
+          .withBody({ password: dto.password })
+          .expectStatus(400);
+      });
+      it('should throw an errror if password is empty', () => {
+        return pactum
+          .spec()
+          .post('/auth/signin')
+          .withBody({ email: dto.email })
+          .expectStatus(400);
+      });
+      it('should throw an errror if email && password are empty', () => {
+        return pactum
+          .spec()
+          .post('/auth/signin')
+          .withBody('')
+          .expectStatus(400);
+      });
       it('should signin', () => {
         return pactum
           .spec()
           .post('/auth/signin')
           .withBody(dto)
-          .expectStatus(200);
+          .expectStatus(200)
+          .stores('userAccessToken', 'access_token');
       });
     });
   });
