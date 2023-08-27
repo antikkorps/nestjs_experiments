@@ -98,7 +98,17 @@ describe('App e2e', () => {
     });
   });
   describe('User', () => {
-    describe('Get current user', () => {});
+    describe('Get current user', () => {
+      it('should get the current user', () => {
+        return pactum
+          .spec()
+          .get('/users/me')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAccessToken}',
+          })
+          .expectStatus(200);
+      });
+    });
     describe('Update current user', () => {});
     describe('Delete current user', () => {});
     describe('Get all users', () => {});

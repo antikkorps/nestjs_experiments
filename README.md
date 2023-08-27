@@ -72,7 +72,19 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](LICENSE).
 
-## Generate a key for JWT:
+## To use End2End tests:
+
+create an env.test
+with the following environment variables:
+DATABASE_URL="postgresql://db:password@localhost:5435/dbname" port should be 5435 as it will be build from the docker compose.
+
+POSTGRES_USER="usernameOfYourChoice"
+POSTGRES_PASSWORD="passwordOfYourChoice"
+POSTGRES_DB="DBNameOfYourChoice"
+
+JWT_SECRET="whateverTokenYouWant"
+
+but you can generate a secure one with the command below:
 
 ```bash
 openssl rand -base64 32
