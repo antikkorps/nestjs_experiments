@@ -89,3 +89,5 @@ but you can generate a secure one with the command below:
 ```bash
 openssl rand -base64 32
 ```
+
+3h09
