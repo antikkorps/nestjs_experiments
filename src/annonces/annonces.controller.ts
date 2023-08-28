@@ -12,6 +12,7 @@ import { AnnoncesService } from './annonces.service';
 import { CreateAnnonceDto } from './dto/create-annonce.dto';
 import { UpdateAnnonceDto } from './dto/update-annonce.dto';
 import { jwtGuard } from 'src/auth/guard';
+import { GetUser } from 'src/auth/decorator';
 
 @UseGuards(jwtGuard)
 @Controller('annonces')
@@ -20,8 +21,11 @@ export class AnnoncesController {
 
   // endpoint annonces/new
   @Post('new')
-  create(@Body() createAnnonceDto: CreateAnnonceDto) {
-    return this.annoncesService.create(createAnnonceDto);
+  create(
+    @GetUser('id') userId: number,
+    @Body() createAnnonceDto: CreateAnnonceDto,
+  ) {
+    return this.annoncesService.create(userId, createAnnonceDto);
   }
 
   // endpoint annonces/all

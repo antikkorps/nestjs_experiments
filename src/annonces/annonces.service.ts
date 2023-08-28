@@ -2,14 +2,23 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateAnnonceDto } from './dto/create-annonce.dto';
 import { UpdateAnnonceDto } from './dto/update-annonce.dto';
+import { GetUser } from 'src/auth/decorator';
 
 @Injectable()
 export class AnnoncesService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createAnnonceDto: CreateAnnonceDto) {
+  async create(
+    @GetUser('id') userId: number,
+    createAnnonceDto: CreateAnnonceDto,
+  ) {
     return this.prisma.annonce.create({
-      data: createAnnonceDto,
+      data: {
+        ...createAnnonceDto,
+        author: {
+          connect: { id: userId },
+        },
+      },
     });
   }
 
