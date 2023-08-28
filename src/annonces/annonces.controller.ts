@@ -18,28 +18,30 @@ import { jwtGuard } from 'src/auth/guard';
 export class AnnoncesController {
   constructor(private readonly annoncesService: AnnoncesService) {}
 
-  @Post()
+  // endpoint annonces/new
+  @Post('new')
   create(@Body() createAnnonceDto: CreateAnnonceDto) {
     return this.annoncesService.create(createAnnonceDto);
   }
 
-  @Get()
+  // endpoint annonces/all
+  @Get('all')
   findAll() {
     return this.annoncesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.annoncesService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAnnonceDto: UpdateAnnonceDto) {
+  update(@Param('id') id: number, @Body() updateAnnonceDto: UpdateAnnonceDto) {
     return this.annoncesService.update(+id, updateAnnonceDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.annoncesService.remove(+id);
   }
 }

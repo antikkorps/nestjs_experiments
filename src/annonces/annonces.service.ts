@@ -1,28 +1,39 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateAnnonceDto } from './dto/create-annonce.dto';
 import { UpdateAnnonceDto } from './dto/update-annonce.dto';
 
 @Injectable()
 export class AnnoncesService {
-  create(createAnnonceDto: CreateAnnonceDto) {
-    console.log(createAnnonceDto);
-    return 'This action adds a new annonce';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createAnnonceDto: CreateAnnonceDto) {
+    return this.prisma.annonce.create({
+      data: createAnnonceDto,
+    });
   }
 
-  findAll() {
-    return `This action returns all annonces`;
+  async findAll() {
+    return this.prisma.annonce.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} annonce`;
+  async findOne(id: number) {
+    return this.prisma.annonce.findUnique({
+      where: { id },
+    });
   }
 
-  update(id: number, updateAnnonceDto: UpdateAnnonceDto) {
+  async update(id: number, updateAnnonceDto: UpdateAnnonceDto) {
     console.log(updateAnnonceDto);
-    return `This action updates a #${id} annonce`;
+    return this.prisma.annonce.update({
+      where: { id },
+      data: { ...updateAnnonceDto },
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} annonce`;
+    return this.prisma.annonce.delete({
+      where: { id },
+    });
   }
 }
