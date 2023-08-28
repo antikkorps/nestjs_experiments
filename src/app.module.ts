@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { AnnonceModule } from './annonce/annonce.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { AnnoncesModule } from './annonces/annonces.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { PrismaModule } from './prisma/prisma.module';
     UserModule,
     AnnonceModule,
     PrismaModule,
+    AnnoncesModule,
   ],
   controllers: [AppController, CatsController],
   providers: [AppService],
