@@ -132,7 +132,25 @@ describe('App e2e', () => {
     describe('Get all users', () => {});
   });
   describe('Annonce', () => {
-    describe('Create annonce', () => {});
+    describe('Create annonce', () => {
+      it('should create an annonce if the user is connected', () => {
+        return pactum
+          .spec()
+          .post('/annonces/new')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAccessToken}',
+          })
+          .withBody({
+            title: 'test',
+            description: 'test',
+            price: 10000,
+            yearofcirculation: 2010,
+            kilometrage: 10000,
+            published: true,
+          })
+          .expectStatus(201);
+      });
+    });
     describe('Get annonces', () => {});
     describe('Get annonce by ID', () => {});
     describe('Update annonce', () => {});

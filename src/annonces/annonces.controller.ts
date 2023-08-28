@@ -11,8 +11,8 @@ import {
 import { AnnoncesService } from './annonces.service';
 import { CreateAnnonceDto } from './dto/create-annonce.dto';
 import { UpdateAnnonceDto } from './dto/update-annonce.dto';
-import { jwtGuard } from 'src/auth/guard';
-import { GetUser } from 'src/auth/decorator';
+import { jwtGuard } from '../auth/guard';
+import { GetUser } from '../auth/decorator';
 
 @UseGuards(jwtGuard)
 @Controller('annonces')

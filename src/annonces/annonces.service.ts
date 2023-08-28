@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateAnnonceDto } from './dto/create-annonce.dto';
 import { UpdateAnnonceDto } from './dto/update-annonce.dto';
-import { GetUser } from 'src/auth/decorator';
+import { GetUser } from '../auth/decorator';
 
 @Injectable()
 export class AnnoncesService {
