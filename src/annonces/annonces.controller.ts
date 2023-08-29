@@ -34,6 +34,7 @@ export class AnnoncesController {
     return this.annoncesService.findAll();
   }
 
+  //endpoint annonces/:id
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.annoncesService.findOne(+id);
