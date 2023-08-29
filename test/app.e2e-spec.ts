@@ -155,5 +155,39 @@ describe('App e2e', () => {
     describe('Get annonce by ID', () => {});
     describe('Update annonce', () => {});
     describe('Delete annonce', () => {});
+
+    describe('Create Contact', () => {
+      it('should create a contact', () => {
+        return pactum.spec().post('/contacts/new').withBody({
+          name: 'Test Contact',
+          phone: '123456789',
+          email: 'test@example.com',
+          message: 'Test message',
+        });
+      });
+    });
+    describe('Get all contacts', () => {
+      it('should get all contacts', () => {
+        return pactum
+          .spec()
+          .get('/contacts/all')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAccessToken}',
+          })
+          .expectStatus(200);
+      });
+    });
+    describe('Get contact by ID', () => {
+      it('should return a contact by its id', () => {
+        return pactum
+          .spec()
+          .get('/contacts/2')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAccessToken}',
+          })
+          .expectStatus(200);
+      });
+    });
+    describe('Delete contact', () => {});
   });
 });
