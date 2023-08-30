@@ -9,6 +9,7 @@ import { AnnonceModule } from './annonce/annonce.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AnnoncesModule } from './annonces/annonces.module';
 import { ContactsModule } from './contacts/contacts.module';
+import { ImagesModule } from './images/images.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ContactsModule } from './contacts/contacts.module';
     PrismaModule,
     AnnoncesModule,
     ContactsModule,
+    ImagesModule,
   ],
   controllers: [AppController, CatsController],
   providers: [AppService],
