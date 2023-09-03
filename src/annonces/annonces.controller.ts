@@ -41,7 +41,11 @@ export class AnnoncesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updateAnnonceDto: UpdateAnnonceDto) {
+  update(
+    @GetUser('id') userId: number,
+    @Param('id') id: number,
+    @Body() updateAnnonceDto: UpdateAnnonceDto,
+  ) {
     return this.annoncesService.update(+id, updateAnnonceDto);
   }
 

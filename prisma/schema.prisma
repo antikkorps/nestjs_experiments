@@ -64,3 +64,12 @@ model Contact {
   phone         String?
   message       String?
 }
+
+model Horaire {
+  id         Int      @id @default(autoincrement())
+  jourDeLaSemaine  String
+  openingAm  String
+  closingAm  String
+  openingPm  String
+  closingPm  String
+}

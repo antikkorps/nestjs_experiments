@@ -10,6 +10,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AnnoncesModule } from './annonces/annonces.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { ImagesModule } from './images/images.module';
+import { HorairesModule } from './horaires/horaires.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ImagesModule } from './images/images.module';
     AnnoncesModule,
     ContactsModule,
     ImagesModule,
+    HorairesModule,
   ],
   controllers: [AppController, CatsController],
   providers: [AppService],
