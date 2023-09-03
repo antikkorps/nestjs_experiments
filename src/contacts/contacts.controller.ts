@@ -34,6 +34,7 @@ export class ContactsController {
   findOne(@Param('id') id: string) {
     return this.contactsService.findOne(+id);
   }
+
   @UseGuards(jwtGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {

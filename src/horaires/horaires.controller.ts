@@ -14,12 +14,12 @@ import { UpdateHoraireDto } from './dto/update-horaire.dto';
 import { jwtGuard } from '../auth/guard';
 import { GetUser } from '../auth/decorator';
 
-@UseGuards(jwtGuard)
 @Controller('horaires')
 export class HorairesController {
   constructor(private readonly horairesService: HorairesService) {}
 
   //endpoint horaires/new
+  @UseGuards(jwtGuard)
   @Post('new')
   create(
     @GetUser('id') userId: number,
@@ -40,6 +40,7 @@ export class HorairesController {
     return this.horairesService.findOne(+id);
   }
 
+  @UseGuards(jwtGuard)
   @Patch(':id')
   update(
     @GetUser('id') userId: number,
@@ -49,6 +50,7 @@ export class HorairesController {
     return this.horairesService.update(+id, updateHoraireDto);
   }
 
+  @UseGuards(jwtGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.horairesService.remove(+id);

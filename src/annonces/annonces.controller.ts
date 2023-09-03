@@ -14,12 +14,12 @@ import { UpdateAnnonceDto } from './dto/update-annonce.dto';
 import { jwtGuard } from '../auth/guard';
 import { GetUser } from '../auth/decorator';
 
-@UseGuards(jwtGuard)
 @Controller('annonces')
 export class AnnoncesController {
   constructor(private readonly annoncesService: AnnoncesService) {}
 
   // endpoint annonces/new
+  @UseGuards(jwtGuard)
   @Post('new')
   create(
     @GetUser('id') userId: number,
@@ -40,6 +40,7 @@ export class AnnoncesController {
     return this.annoncesService.findOne(+id);
   }
 
+  @UseGuards(jwtGuard)
   @Patch(':id')
   update(
     @GetUser('id') userId: number,
@@ -49,6 +50,7 @@ export class AnnoncesController {
     return this.annoncesService.update(+id, updateAnnonceDto);
   }
 
+  @UseGuards(jwtGuard)
   @Delete(':id')
   remove(@Param('id') id: number) {
     return this.annoncesService.remove(+id);
