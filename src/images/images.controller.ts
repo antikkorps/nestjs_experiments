@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
+import { FileInterceptor } from '@nestjs/platform-express/multer';
 import { GetUser } from '../auth/decorator';
 
 @Controller('images')
@@ -18,8 +21,20 @@ export class ImagesController {
 
   // route: images/upload
   @Post('upload')
-  create(@GetUser() userId: number, @Body() createImageDto: CreateImageDto) {
-    return this.imagesService.create(userId, createImageDto);
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(
+    @UploadedFile() file: Express.Multer.File,
+    @GetUser('id') userId: number,
+    @Body() createImageDto: CreateImageDto,
+  ) {
+    const { AnnonceId } = createImageDto;
+    const ImageDto: CreateImageDto = {
+      name: file.originalname,
+      url: file.path,
+      featuredImage: false,
+      AnnonceId: AnnonceId,
+    };
+    return this.imagesService.create(userId, ImageDto);
   }
 
   @Get()
