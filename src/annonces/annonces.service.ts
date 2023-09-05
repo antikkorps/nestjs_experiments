@@ -26,6 +26,32 @@ export class AnnoncesService {
     return this.prisma.annonce.findMany();
   }
 
+  async findQuery(query: any) {
+    try {
+      return await this.prisma.annonce.findMany({
+        where: {
+          OR: [
+            {
+              title: {
+                contains: query.q,
+                mode: 'insensitive',
+              },
+            },
+            {
+              description: {
+                contains: query.q,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        },
+      });
+    } catch (error) {
+      console.error("Erreur lors de la recherche d'annonces :", error);
+      throw error;
+    }
+  }
+
   async findOne(id: number) {
     return this.prisma.annonce.findUnique({
       where: { id },

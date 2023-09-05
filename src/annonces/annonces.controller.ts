@@ -5,6 +5,7 @@ import {
   Body,
   Patch,
   Param,
+  Query,
   Delete,
   UseGuards,
 } from '@nestjs/common';
@@ -32,6 +33,12 @@ export class AnnoncesController {
   @Get('all')
   findAll() {
     return this.annoncesService.findAll();
+  }
+
+  // endpoint annonces/?q
+  @Get('search')
+  findQuery(@Query('q') query: string) {
+    return this.annoncesService.findQuery({ q: query });
   }
 
   //endpoint annonces/:id
