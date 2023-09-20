@@ -76,4 +76,17 @@ export class AuthService {
 
     return { access_token: token };
   }
+  async validateUser(token: string): Promise<boolean> {
+    try {
+      const secret = this.config.get('JWT_SECRET');
+      const decodedToken = await this.jwt.verifyAsync(token, {
+        secret: secret,
+      });
+      console.log(token);
+      console.log(decodedToken);
+      return decodedToken;
+    } catch (error) {
+      throw new ForbiddenException('Invalid token');
+    }
+  }
 }

@@ -1,4 +1,13 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ForbiddenException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
 
@@ -18,5 +27,15 @@ export class AuthController {
   @Post('signin')
   signin(@Body() dto: AuthDto) {
     return this.authService.signin(dto);
+  }
+
+  @Get('validate/:token')
+  validateUser(@Param('token') token: string) {
+    if (!token) {
+      throw new ForbiddenException('Token not provided');
+    } else {
+      return this.authService.validateUser(token);
+      console.log(token);
+    }
   }
 }
