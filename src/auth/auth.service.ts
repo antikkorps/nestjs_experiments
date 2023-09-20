@@ -82,8 +82,6 @@ export class AuthService {
       const decodedToken = await this.jwt.verifyAsync(token, {
         secret: secret,
       });
-      console.log(token);
-      console.log(decodedToken);
       return decodedToken;
     } catch (error) {
       throw new ForbiddenException('Invalid token');

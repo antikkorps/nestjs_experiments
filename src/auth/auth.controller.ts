@@ -35,7 +35,6 @@ export class AuthController {
       throw new ForbiddenException('Token not provided');
     } else {
       return this.authService.validateUser(token);
-      console.log(token);
     }
   }
 }
