@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  NotFoundException,
+  Injectable,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { ConfigService } from '@nestjs/config';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
@@ -85,6 +89,50 @@ export class AuthService {
       return decodedToken;
     } catch (error) {
       throw new ForbiddenException('Invalid token');
+    }
+  }
+  async resetPasswordRequest(
+    token: string,
+    newPassword: string,
+  ): Promise<boolean> {
+    try {
+      const userId = await this.validateResetToken(token);
+      const newPasswordHash = await argon.hash(newPassword);
+
+      await this.prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          password: newPasswordHash,
+        },
+      });
+      await this.prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          resetToken: null,
+        },
+      });
+      return true;
+    } catch (error) {
+      throw new ForbiddenException(error.message);
+    }
+  }
+  async validateResetToken(token: string): Promise<number> {
+    try {
+      const user = await this.prisma.user.findFirst({
+        where: {
+          resetToken: token,
+        },
+      });
+      if (!user) {
+        throw new NotFoundException('Token not found');
+      }
+      return user.id;
+    } catch (error) {
+      throw new ForbiddenException(error.message);
     }
   }
 }
