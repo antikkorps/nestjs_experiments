@@ -91,31 +91,32 @@ export class AuthService {
       throw new ForbiddenException('Invalid token');
     }
   }
-  async resetPasswordRequest(
-    token: string,
-    newPassword: string,
-  ): Promise<boolean> {
+  async resetPasswordRequest(email: string) {
     try {
-      const userId = await this.validateResetToken(token);
-      const newPasswordHash = await argon.hash(newPassword);
+      const user = await this.prisma.user.findUnique({
+        where: {
+          email: email,
+        },
+      });
 
-      await this.prisma.user.update({
-        where: {
-          id: userId,
-        },
-        data: {
-          password: newPasswordHash,
-        },
+      if (!user) {
+        throw new NotFoundException("L'email n'a pas été trouvé");
+      }
+      const secret = this.config.get('JWT_SECRET');
+      const payload = { userId: user.id };
+      const resetToken = await this.jwt.signAsync(payload, {
+        secret: secret,
+        expiresIn: '1h',
       });
       await this.prisma.user.update({
         where: {
-          id: userId,
+          id: user.id,
         },
         data: {
-          resetToken: null,
+          resetToken,
         },
       });
-      return true;
+      return resetToken;
     } catch (error) {
       throw new ForbiddenException(error.message);
     }
