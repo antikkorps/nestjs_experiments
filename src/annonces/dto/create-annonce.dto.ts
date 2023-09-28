@@ -14,6 +14,9 @@ export class CreateAnnonceDto {
   @IsOptional()
   description: string;
 
+  @IsString()
+  brand: string;
+
   @IsNumber()
   @IsNotEmpty()
   price: number;

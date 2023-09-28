@@ -28,6 +28,7 @@ model Annonce {
   id          Int  @id @default(autoincrement())
   title       String
   description String
+  brand       String?
   price       Int
   kilometrage Int?
   yearofcirculation Int?
