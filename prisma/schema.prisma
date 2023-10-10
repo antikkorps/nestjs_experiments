@@ -33,6 +33,7 @@ model Annonce {
   kilometrage Int?
   yearofcirculation Int?
   published         Boolean     @default(false)
+  featured          Boolean     @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

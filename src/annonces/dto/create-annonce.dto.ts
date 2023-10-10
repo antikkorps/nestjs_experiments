@@ -30,6 +30,9 @@ export class CreateAnnonceDto {
   @IsBoolean()
   published: boolean;
 
+  @IsBoolean()
+  featured: boolean;
+
   @IsOptional()
   author: object;
 }
