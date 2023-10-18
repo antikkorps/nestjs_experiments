@@ -5,25 +5,40 @@ import {
   Body,
   Patch,
   Param,
+  ParseFilePipe,
+  MaxFileSizeValidator,
+  FileTypeValidator,
   Delete,
   UseInterceptors,
+  UseGuards,
   UploadedFile,
 } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
+import { jwtGuard } from '../auth/guard';
 import { GetUser } from '../auth/decorator';
+import { multerOptions } from './options/multer.options';
 
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}
 
   // route: images/upload
+  @UseGuards(jwtGuard)
   @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('file', multerOptions))
   async uploadFile(
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 1000 }),
+          new FileTypeValidator({ fileType: 'image/jpeg, image/png' }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
     @GetUser('id') userId: number,
     @Body() createImageDto: CreateImageDto,
   ) {
