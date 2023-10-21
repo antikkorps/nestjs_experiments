@@ -25,6 +25,16 @@ import { multerOptions } from './options/multer.options';
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}
 
+  // images/new
+  @UseGuards(jwtGuard)
+  @Post('new')
+  create(
+    @GetUser('id') userId: number,
+    @Body() createImageDto: CreateImageDto,
+  ) {
+    return this.imagesService.create(userId, createImageDto);
+  }
+
   // route: images/upload
   @UseGuards(jwtGuard)
   @Post('upload')
