@@ -36,7 +36,7 @@ model Annonce {
   featured          Boolean     @default(false)
   imageCover        String?
   imageOne          String?
-  imaheOneTitle     String?
+  imageOneTitle     String?
   imageTwo          String?
   imageTwoTitle     String?
   imageThree        String?
