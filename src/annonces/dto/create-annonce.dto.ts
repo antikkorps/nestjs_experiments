@@ -33,6 +33,28 @@ export class CreateAnnonceDto {
   @IsBoolean()
   featured: boolean;
 
+  @IsString()
+  @IsNotEmpty()
+  imageCover: string;
+
+  @IsString()
+  imageOne: string;
+
+  @IsString()
+  imageOneTitle: string;
+
+  @IsString()
+  imageTwo: string;
+
+  @IsString()
+  imageTwoTitle: string;
+
+  @IsString()
+  imageThree: string;
+
+  @IsString()
+  imageThreeTitle: string;
+
   @IsOptional()
   author: object;
 }
