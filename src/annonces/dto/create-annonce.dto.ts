@@ -41,19 +41,10 @@ export class CreateAnnonceDto {
   imageOne: string;
 
   @IsString()
-  imageOneTitle: string;
-
-  @IsString()
   imageTwo: string;
 
   @IsString()
-  imageTwoTitle: string;
-
-  @IsString()
   imageThree: string;
-
-  @IsString()
-  imageThreeTitle: string;
 
   @IsOptional()
   author: object;

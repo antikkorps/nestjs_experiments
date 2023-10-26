@@ -36,11 +36,8 @@ model Annonce {
   featured          Boolean     @default(false)
   imageCover        String?
   imageOne          String?
-  imageOneTitle     String?
   imageTwo          String?
-  imageTwoTitle     String?
   imageThree        String?
-  imageThreeTitle   String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
