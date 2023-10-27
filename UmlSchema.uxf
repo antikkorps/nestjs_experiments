@@ -27,11 +27,8 @@ logOut()
 - featured : BOOL
 - imageCover : VARCHAR
 - imageOne : VARCHAR
-- imageOneTtile : VARCHAR
 - imageTwo : VARCHAR
-- imageTwoTitle : VARCHAR
 - imageThree : VARCHAR
-- imageThreeTitle : VARCHAR
 - createdAt : DATETIME
 - updatedAt : DATETIME
 
