@@ -17,6 +17,7 @@ model User {
   lastName  String?
   password  String
   resetToken String?
+  role      String   @default("USER")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   annonces     Annonce[]
