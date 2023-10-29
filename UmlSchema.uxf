@@ -1,16 +1,16 @@
 <diagram program="umletino" version="15.1"><zoom_level>7</zoom_level><element><id>UMLClass</id><coordinates><x>217</x><y>196</y><w>147</w><h>168</h></coordinates><panel_attributes>User
 --
--id: INT autoincrement
--email : VARCHAR
--firstName : VARCHAR
--lastName : VARCHAR
--password : VARCHAR
--resetToken : VARCHAR
+- id: INT autoincrement
+- email : VARCHAR
+- firstName : VARCHAR
+- lastName : VARCHAR
+- password : VARCHAR
+- resetToken : VARCHAR
 - createdAt : DATETIME
 - updatedAt : DATETIME
 
 --
--annonces []
+- annonces []
 --
 logIn()
 logOut()
