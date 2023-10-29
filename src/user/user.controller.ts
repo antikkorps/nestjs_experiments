@@ -11,8 +11,13 @@ export class UserController {
   constructor(private userService: UserService) {}
   // endpoint users/me
   @Get('me')
-  getMe(@GetUser() user: User, @GetUser('email') email: string) {
+  getMe(
+    @GetUser() user: User,
+    @GetUser('email') email: string,
+    @GetUser('role') role: string,
+  ) {
     console.log({ email });
+    console.log({ role });
     return user;
   }
   @Patch()

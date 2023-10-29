@@ -61,15 +61,17 @@ export class AuthService {
     //if password incorrect, throw an exception
     if (!passwordMatches)
       throw new ForbiddenException('Utilisateur et/ou mot de passe incorrects');
-    return this.signToken(user.id, user.email);
+    return this.signToken(user.id, user.email, user.role);
   }
   async signToken(
     userId: number,
     email: string,
+    role: string,
   ): Promise<{ access_token: string }> {
     const payload = {
       sub: userId,
       email,
+      role,
     };
     const secret = this.config.get('JWT_SECRET');
 

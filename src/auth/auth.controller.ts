@@ -30,11 +30,19 @@ export class AuthController {
   }
 
   @Get('validate/:token')
-  validateUser(@Param('token') token: string) {
+  async validateUser(@Param('token') token: string) {
     if (!token) {
       throw new ForbiddenException('Token not provided');
     } else {
-      return this.authService.validateUser(token);
+      try {
+        const user = await this.authService.validateUser(token);
+        if (!user) {
+          throw new ForbiddenException('Invalid token');
+        }
+        return user;
+      } catch (error) {
+        throw new ForbiddenException('Invalid token');
+      }
     }
   }
 
