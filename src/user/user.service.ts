@@ -13,4 +13,14 @@ export class UserService {
     delete user.password;
     return user;
   }
+  async getAllUsers() {
+    const users = await this.prisma.user.findMany();
+    return users.map((user) => {
+      delete user.password;
+      return user;
+    });
+  }
+  async deleteUser(userId: number) {
+    return this.prisma.user.delete({ where: { id: userId } });
+  }
 }
