@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   UseGuards,
+  Param,
   Patch,
   Delete,
   Body,
@@ -34,13 +35,15 @@ export class UserController {
   }
   // endpoint users/id
   @Get(':id')
-  getUserById(@GetUser('id') userId: number) {
-    return this.userService.getUserById(userId);
+  getUserById(@Param('id') userId: string) {
+    const id = parseInt(userId, 10);
+    return this.userService.getUserById(id);
   }
 
   @Patch(':id')
-  editUser(@GetUser('id') userId: number, @Body() dto: EditUserDto) {
-    return this.userService.editUser(userId, dto);
+  editUser(@Param('id') userId: string, @Body() dto: EditUserDto) {
+    const id = parseInt(userId, 10);
+    return this.userService.editUser(id, dto);
   }
   @Delete(':id')
   deleteUser(@GetUser('id') userId: number) {
