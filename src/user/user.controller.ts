@@ -32,6 +32,12 @@ export class UserController {
   getAllUsers() {
     return this.userService.getAllUsers();
   }
+  // endpoint users/id
+  @Get(':id')
+  getUserById(@GetUser('id') userId: number) {
+    return this.userService.getUserById(userId);
+  }
+
   @Patch()
   editUser(@GetUser('id') userId: number, @Body() dto: EditUserDto) {
     return this.userService.editUser(userId, dto);

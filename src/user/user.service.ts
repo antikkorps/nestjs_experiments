@@ -20,6 +20,11 @@ export class UserService {
       return user;
     });
   }
+  async getUserById(userId: number) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    delete user.password;
+    return user;
+  }
   async deleteUser(userId: number) {
     return this.prisma.user.delete({ where: { id: userId } });
   }
