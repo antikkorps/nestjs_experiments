@@ -38,11 +38,11 @@ export class UserController {
     return this.userService.getUserById(userId);
   }
 
-  @Patch()
+  @Patch(':id')
   editUser(@GetUser('id') userId: number, @Body() dto: EditUserDto) {
     return this.userService.editUser(userId, dto);
   }
-  @Delete()
+  @Delete(':id')
   deleteUser(@GetUser('id') userId: number) {
     return this.userService.deleteUser(userId);
   }
