@@ -15,6 +15,10 @@ export class CreateContactDto {
   email: string;
 
   @IsString()
+  @IsOptional()
+  purpose: string;
+
+  @IsString()
   @IsNotEmpty()
   message: string;
 }

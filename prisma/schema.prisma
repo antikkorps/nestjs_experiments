@@ -68,6 +68,7 @@ model Contact {
   name          String?
   email         String?
   phone         String?
+  purpose       String?
   message       String?
 }
 
