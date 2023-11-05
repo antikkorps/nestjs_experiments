@@ -1,8 +1,12 @@
-import { IsString, IsISO8601, IsNotEmpty } from 'class-validator';
+import { IsString, IsISO8601, IsNotEmpty, IsBoolean } from 'class-validator';
 export class CreateHoraireDto {
   @IsString()
   @IsNotEmpty()
   jourDeLaSemaine: string;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  ouvertureAm: boolean;
 
   @IsISO8601()
   @IsNotEmpty()
@@ -11,6 +15,10 @@ export class CreateHoraireDto {
   @IsISO8601()
   @IsNotEmpty()
   closingAm: string;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  ouverturePm: boolean;
 
   @IsISO8601()
   @IsNotEmpty()

@@ -75,8 +75,10 @@ model Contact {
 model Horaire {
   id         Int      @id @default(autoincrement())
   jourDeLaSemaine  String
+  ouvertureAm Boolean @default(true)
   openingAm  String
   closingAm  String
+  ouverturePm Boolean @default(true)
   openingPm  String
   closingPm  String
 }
