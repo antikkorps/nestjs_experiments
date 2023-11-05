@@ -46,7 +46,8 @@ export class UserController {
     return this.userService.editUser(id, dto);
   }
   @Delete(':id')
-  deleteUser(@GetUser('id') userId: number) {
-    return this.userService.deleteUser(userId);
+  deleteUser(@Param('id') userId: string) {
+    const id = parseInt(userId, 10);
+    return this.userService.deleteUser(id);
   }
 }
