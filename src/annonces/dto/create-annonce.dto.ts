@@ -38,12 +38,15 @@ export class CreateAnnonceDto {
   imageCover: string;
 
   @IsString()
+  @IsOptional()
   imageOne: string;
 
   @IsString()
+  @IsOptional()
   imageTwo: string;
 
   @IsString()
+  @IsOptional()
   imageThree: string;
 
   @IsOptional()
