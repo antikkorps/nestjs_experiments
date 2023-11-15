@@ -51,14 +51,13 @@ export class AnnoncesService {
         });
       }
 
-      if (query.price) {
-        const prices = Array.isArray(query.price)
-          ? query.price.map((price) => parseInt(price))
-          : [parseInt(query.price)];
-
+      if (query.priceMin || query.priceMax) {
+        const minRange = parseInt(query.priceMin);
+        const maxRange = parseInt(query.priceMax);
         whereCondition.AND.push({
           price: {
-            in: prices,
+            gte: minRange || 0,
+            lte: maxRange || Number.MAX_SAFE_INTEGER,
           },
         });
       }

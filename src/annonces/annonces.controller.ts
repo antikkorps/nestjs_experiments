@@ -39,13 +39,15 @@ export class AnnoncesController {
   @Get('search')
   findQuery(
     @Query('q') query: string,
-    @Query('price') price: number,
+    @Query('priceMin') priceMin: number,
+    @Query('priceMax') priceMax: number,
     @Query('brand') brand: string,
     @Query('yearofcirculation') yearofcirculation: number,
   ) {
     return this.annoncesService.findQuery({
       q: query,
-      price,
+      priceMin,
+      priceMax,
       brand,
       yearofcirculation,
     });
