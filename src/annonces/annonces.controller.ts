@@ -35,10 +35,20 @@ export class AnnoncesController {
     return this.annoncesService.findAll();
   }
 
-  // endpoint annonces/?q
+  // endpoint annonces/search/?q
   @Get('search')
-  findQuery(@Query('q') query: string) {
-    return this.annoncesService.findQuery({ q: query });
+  findQuery(
+    @Query('q') query: string,
+    @Query('price') price: number,
+    @Query('brand') brand: string,
+    @Query('yearofcirculation') yearofcirculation: number,
+  ) {
+    return this.annoncesService.findQuery({
+      q: query,
+      price,
+      brand,
+      yearofcirculation,
+    });
   }
 
   //endpoint annonces/:id

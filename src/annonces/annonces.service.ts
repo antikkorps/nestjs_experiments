@@ -28,8 +28,12 @@ export class AnnoncesService {
 
   async findQuery(query: any) {
     try {
-      return await this.prisma.annonce.findMany({
-        where: {
+      const whereCondition: any = {
+        AND: [],
+      };
+
+      if (query.q) {
+        whereCondition.AND.push({
           OR: [
             {
               title: {
@@ -44,7 +48,45 @@ export class AnnoncesService {
               },
             },
           ],
-        },
+        });
+      }
+
+      if (query.price) {
+        const prices = Array.isArray(query.price)
+          ? query.price.map((price) => parseInt(price))
+          : [parseInt(query.price)];
+
+        whereCondition.AND.push({
+          price: {
+            in: prices,
+          },
+        });
+      }
+
+      if (query.brand) {
+        const brands = Array.isArray(query.brand) ? query.brand : [query.brand];
+        whereCondition.AND.push({
+          brand: {
+            in: brands,
+          },
+        });
+      }
+
+      if (query.yearofcirculation) {
+        const years = Array.isArray(query.yearofcirculation)
+          ? query.yearofcirculation.map((yearofcirculation) =>
+              parseInt(yearofcirculation),
+            )
+          : [parseInt(query.yearofcirculation)];
+        whereCondition.AND.push({
+          yearofcirculation: {
+            in: years,
+          },
+        });
+      }
+
+      return await this.prisma.annonce.findMany({
+        where: whereCondition,
       });
     } catch (error) {
       console.error("Erreur lors de la recherche d'annonces :", error);
