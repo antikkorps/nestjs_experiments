@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client';
 import * as dotenv from 'dotenv';
+import * as argon2 from 'argon2';
 
 // In order to create seeds, use "npm run seed"
 
@@ -37,7 +38,7 @@ const fakerContact = (): any => ({
 });
 
 async function main() {
-  const fakerRounds = 10;
+  const fakerRounds = 20;
   dotenv.config();
   console.log('Seeding...');
   /// --------- Users && Annonces && Contacts --------------- ///
@@ -46,6 +47,17 @@ async function main() {
     await prisma.annonce.create({ data: fakerAnnonce() });
     await prisma.contact.create({ data: fakerContact() });
   }
+  /// --------- create one admin --------------- ///
+  await prisma.user.create({
+    data: {
+      firstName: 'admin',
+      lastName: 'admin',
+      email: 'admin@admin.com',
+      password: await argon2.hash(process.env.ADMIN_PASSWORD),
+      role: 'ADMIN',
+    },
+  });
+  console.log('Seeding done !');
 }
 
 main()
