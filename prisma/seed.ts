@@ -57,6 +57,75 @@ async function main() {
       role: 'ADMIN',
     },
   });
+
+  ///---------- create 7 Horaires --------------- ///
+  await prisma.horaire.createMany({
+    data: [
+      {
+        jourDeLaSemaine: 'lundi',
+        ouvertureAm: true,
+        openingAm: '09:00',
+        closingAm: '12:00',
+        ouverturePm: true,
+        openingPm: '14:00',
+        closingPm: '18:00',
+      },
+      {
+        jourDeLaSemaine: 'mardi',
+        ouvertureAm: true,
+        openingAm: '09:00',
+        closingAm: '12:00',
+        ouverturePm: true,
+        openingPm: '14:00',
+        closingPm: '18:00',
+      },
+      {
+        jourDeLaSemaine: 'mercredi',
+        ouvertureAm: true,
+        openingAm: '09:00',
+        closingAm: '12:00',
+        ouverturePm: true,
+        openingPm: '14:00',
+        closingPm: '18:00',
+      },
+      {
+        jourDeLaSemaine: 'jeudi',
+        ouvertureAm: true,
+        openingAm: '09:00',
+        closingAm: '12:00',
+        ouverturePm: true,
+        openingPm: '14:00',
+        closingPm: '18:00',
+      },
+      {
+        jourDeLaSemaine: 'vendredi',
+        ouvertureAm: true,
+        openingAm: '09:00',
+        closingAm: '12:00',
+        ouverturePm: true,
+        openingPm: '14:00',
+        closingPm: '18:00',
+      },
+      {
+        jourDeLaSemaine: 'samedi',
+        ouvertureAm: true,
+        openingAm: '09:00',
+        closingAm: '12:00',
+        ouverturePm: false,
+        openingPm: '14:00',
+        closingPm: '18:00',
+      },
+      {
+        jourDeLaSemaine: 'dimanche',
+        ouvertureAm: true,
+        openingAm: '09:00',
+        closingAm: '12:00',
+        ouverturePm: true,
+        openingPm: '14:00',
+        closingPm: '18:00',
+      },
+    ],
+  });
   console.log('Seeding done !');
 }
 
