@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const corsOptions: CorsOptions = {
-    origin: ['https://garagefront.netlify.app', 'http://localhost:5173'], // URL front-end
+    origin: ['https://garagefront.netlify.app', 'http://127.0.0.1:5173'], // URL front-end
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Permettre les cookies
   };
